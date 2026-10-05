@@ -1,0 +1,345 @@
+/* style.css — tokens e componentes do cliente, a partir de specs/design.md §1–§11.
+   Espaçamento SEMPRE com var(--space-N) de base.css. Media queries de cada componente vêm DEPOIS das regras base dele. */
+:root {
+  --fundo: #F5F1EA;
+  --fundo-tom: #ECE7DE;
+  --marca: #C1BEAF;
+  --texto: #2F2C29;
+  --texto-2: #5F5953;
+  --escuro: #0D0C0B;
+  --texto-inv: #F5F1EA;
+  --texto-inv-2: #A9A69F;
+  --fio: rgba(47, 44, 41, .15);
+  --fio-inv: rgba(245, 241, 234, .15);
+  --taupe: #7F746A;
+  --focus-ring: #2F2C29;
+
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --raio: 0;
+
+  --fs-h1: clamp(2.75rem, 6.5vw, 6rem);
+  --fs-h2: clamp(2.25rem, 4.6vw, 4rem);
+  --fs-h3: clamp(1.875rem, 2.6vw, 2.25rem);
+  --fs-frase: clamp(1.75rem, 3vw, 2.5rem);
+  --fs-corpo: 1rem;
+  --fs-rotulo: 0.75rem;
+}
+@media (min-width: 900px) { :root { --fs-corpo: 1.0625rem; } }
+
+/* Base tipográfica */
+body {
+  background: var(--fundo); color: var(--texto);
+  font-family: var(--sans); font-size: var(--fs-corpo); font-weight: 400; line-height: 1.65;
+}
+h1, h2, h3 { font-family: var(--serif); font-weight: 300; color: var(--texto); text-wrap: balance; }
+h1 em, h2 em, h3 em { font-style: italic; white-space: nowrap; }
+h2 { font-size: var(--fs-h2); line-height: 1.05; letter-spacing: -0.025em; }
+h3 { font-size: var(--fs-h3); line-height: 1.1; letter-spacing: -0.01em; }
+p { max-width: 36em; }
+.nowrap { white-space: nowrap; }
+a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+.rotulo {
+  font-family: var(--sans); font-size: var(--fs-rotulo); font-weight: 400; line-height: 1.5;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--texto-2);
+}
+.rotulo + h1, .rotulo + h2 { margin-top: var(--space-5); }
+@media (max-width: 399px) { .heroi .rotulo { letter-spacing: 0.2em; } }
+@media (min-width: 900px) { h2 { line-height: 0.98; } }
+
+/* Ícones em linha fora de p/li/botão (lição Yda) */
+.link-seta .icone, address .icone, summary .icone, .rodape__links .icone, .whatsapp-fixo .icone { width: var(--icone-linha); height: var(--icone-linha); }
+
+/* Botões: um raio só (0), 56px, mesma fonte em todos (inclusive o fixo) */
+.botao, .whatsapp-fixo {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-3);
+  min-height: 56px; padding: var(--space-4) var(--space-6);
+  border: 1px solid transparent; border-radius: var(--raio);
+  font-family: var(--sans); font-size: 0.8125rem; font-weight: 500; line-height: 1.2;
+  letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; white-space: nowrap;
+  transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.botao--escuro, .whatsapp-fixo { background: var(--texto); color: var(--texto-inv); }
+.botao--escuro:hover { background: #45413D; }
+.botao--claro { background: var(--fundo); color: var(--texto); }
+.botao--claro:hover { background: #E4DED4; }
+.botao--contorno { border-color: currentColor; color: var(--texto); background: transparent; }
+.botao--contorno:hover { background: rgba(47, 44, 41, .06); }
+@media (max-width: 399px) {
+  .botao, .whatsapp-fixo { white-space: normal; text-align: center; padding-inline: var(--space-4); font-size: 0.75rem; letter-spacing: 0.08em; gap: var(--space-2); }
+}
+
+.link-seta {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--toque-min);
+  font-size: var(--fs-rotulo); letter-spacing: 0.3em; text-transform: uppercase; text-decoration: none; color: var(--texto-2);
+}
+.link-seta .icone { transition: transform var(--dur-base) var(--ease-out); }
+.link-seta:hover { color: var(--texto); }
+.link-seta:hover .icone { transform: translateX(4px); }
+
+.acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+@media (max-width: 899px) { .acoes .botao { flex: 1 1 100%; } }
+
+/* Cabeçalho */
+.cabecalho {
+  position: fixed; inset: 0 0 auto 0; z-index: 80;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.cabecalho[data-rolado] {
+  background: rgba(245, 241, 234, .85); border-bottom-color: var(--fio);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.cabecalho__barra { display: flex; align-items: center; gap: var(--space-5); min-height: 72px; padding-block: var(--space-3); }
+.marca { display: inline-flex; align-items: baseline; gap: var(--space-3); flex-shrink: 0; text-decoration: none; color: var(--texto); min-height: var(--toque-min); align-self: center; padding-block: var(--space-2); }
+.marca__sigla { font-family: var(--serif); font-size: 2rem; font-weight: 400; line-height: 1; letter-spacing: 0.02em; }
+.marca__nome { font-size: 0.6875rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--texto-2); }
+.nav { display: none; }
+.cabecalho__cta { display: none; }
+.cabecalho__menu {
+  margin-left: auto; flex-shrink: 0; display: inline-grid; place-items: center;
+  width: var(--toque-min); height: var(--toque-min); padding: 0; background: none; border: 0; color: var(--texto);
+}
+@media (min-width: 900px) {
+  .cabecalho__menu { display: none; }
+  .nav { display: block; margin-left: auto; }
+  .nav ul { display: flex; gap: var(--space-5); }
+  .nav a {
+    display: inline-flex; align-items: center; min-height: var(--toque-min); white-space: nowrap;
+    font-size: var(--fs-rotulo); letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: var(--texto);
+  }
+  .nav a:hover { text-decoration: underline; }
+  .cabecalho__cta { display: inline-flex; padding: var(--space-3) var(--space-5); }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .nav ul { gap: var(--space-4); }
+  .nav a { letter-spacing: 0.12em; }
+  .marca__nome { display: none; }
+}
+
+/* Menu de celular */
+.menu-celular {
+  position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; gap: var(--space-6);
+  padding: var(--space-3) var(--gutter) var(--space-7); background: var(--fundo); overflow-y: auto;
+  opacity: 0; transition: opacity var(--dur-base) var(--ease-out), visibility var(--dur-base);
+}
+.menu-celular[data-aberto="true"] { opacity: 1; }
+.menu-celular__topo { display: flex; align-items: center; min-height: 72px; }
+.menu-celular__links a {
+  display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid var(--fio);
+  font-family: var(--serif); font-size: 2rem; font-weight: 300; text-decoration: none;
+}
+.menu-celular .botao { width: 100%; }
+.menu-celular__id { font-size: 0.875rem; color: var(--texto-2); }
+
+/* Herói */
+.heroi { padding-top: var(--header-h); padding-bottom: 0; }
+.heroi__grade { display: grid; gap: var(--space-5); }
+.heroi__midia { order: -1; width: 100%; height: clamp(140px, 26svh, 240px); background: var(--taupe); }
+.heroi__midia img { object-position: 50% 28%; }
+@media (min-width: 600px) { .heroi__midia img { object-position: 50% 60%; } }
+.dermatologista__retrato { display: none; }
+.heroi__titulo { font-size: var(--fs-h1); font-weight: 400; line-height: 1; letter-spacing: -0.01em; }
+.heroi__titulo em { font-weight: 400; }
+.heroi__apoio { margin-top: var(--space-4); display: grid; gap: var(--space-1); font-size: 1.0625rem; color: var(--texto-2); }
+.heroi__apoio li:first-child { color: var(--texto); }
+.heroi__acoes { display: grid; gap: var(--space-3); margin-top: var(--space-5); }
+@media (min-width: 600px) and (max-width: 899px) {
+  .heroi__grade { max-width: 560px; margin-inline: auto; }
+}
+@media (min-width: 900px) {
+  .heroi { padding-top: calc(var(--header-h) + var(--space-8)); }
+  .heroi__grade { grid-template-columns: minmax(0, 1fr) minmax(0, 600px); align-items: end; gap: var(--space-8); }
+  .heroi__apoio { margin-top: var(--space-6); }
+  .heroi__midia { order: 0; max-width: 600px; height: auto; aspect-ratio: 990 / 925; margin: 0; }
+  .heroi__acoes { grid-template-columns: max-content max-content; margin-top: var(--space-7); }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .heroi__grade { grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: var(--space-7); align-items: start; }
+  .heroi__acoes { grid-template-columns: max-content; }
+}
+
+/* A dermatologista */
+.dermatologista__grade { display: grid; gap: var(--space-6); }
+.dermatologista__fotos { position: relative; }
+.dermatologista__mesa { aspect-ratio: 3 / 4; width: 100%; max-width: 560px; }
+.dermatologista__mesa img { object-position: 70% 30%; }
+.dermatologista__retrato {
+  position: absolute; left: 0; bottom: calc(-1 * var(--space-7)); width: 44%; max-width: 240px; aspect-ratio: 4 / 5;
+  border: var(--space-2) solid var(--fundo);
+}
+.dermatologista__texto { display: grid; gap: var(--space-4); margin-top: var(--space-7); }
+.dermatologista__assinatura { max-width: none; font-size: 0.875rem; color: var(--texto-2); padding-top: var(--space-4); border-top: 1px solid var(--fio); }
+.dados {
+  display: grid; gap: var(--space-5); margin-top: var(--space-8);
+  border-top: 1px solid var(--fio); padding-top: var(--space-6);
+}
+.dados__item { display: flex; flex-direction: column-reverse; gap: var(--space-2); }
+.dados dt { font-size: var(--fs-rotulo); letter-spacing: 0.3em; text-transform: uppercase; color: var(--texto-2); }
+.dados dd { margin: 0; font-family: var(--serif); font-size: clamp(2rem, 3.2vw, 2.75rem); font-weight: 300; line-height: 1.1; }
+@media (min-width: 600px) and (max-width: 899px) {
+  .dermatologista__grade, .dados { max-width: 560px; margin-inline: auto; }
+}
+@media (min-width: 900px) {
+  .dermatologista__grade { grid-template-columns: 6fr 5fr; grid-template-rows: auto 1fr; column-gap: var(--space-9); row-gap: var(--space-6); }
+  .dermatologista__cabeca { grid-column: 1; grid-row: 1; }
+  .dermatologista__texto { grid-column: 1; grid-row: 2; align-self: start; margin-top: 0; }
+  .dermatologista__fotos { grid-column: 2; grid-row: 1 / span 2; justify-self: end; width: 100%; max-width: 480px; padding-left: var(--space-8); }
+  .dermatologista__retrato { display: block; width: 220px; left: 0; bottom: calc(-1 * var(--space-7)); }
+  .dados { grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-10); }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .dermatologista__grade { column-gap: var(--space-7); grid-template-columns: 6fr 6fr; }
+  .dermatologista__fotos { padding-left: var(--space-8); }
+  .dermatologista__retrato { width: 170px; }
+}
+
+/* Cabeça de seção dupla (título + apoio à direita) */
+.cabeca-dupla { display: grid; gap: var(--space-5); }
+.cabeca-dupla__apoio { color: var(--texto-2); }
+@media (min-width: 900px) {
+  .cabeca-dupla { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; column-gap: var(--space-5); }
+  .cabeca-dupla > div { grid-column: 1 / span 2; }
+  .cabeca-dupla__apoio { grid-column: 3; }
+  .atendimento .cabeca-dupla { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--space-6); }
+  .atendimento .cabeca-dupla__apoio { grid-column: 3 / span 2; }
+}
+
+/* Tratamentos */
+.tratamentos { background: var(--fundo-tom); }
+.tratamentos__imagem { aspect-ratio: 2400 / 1024; margin-top: var(--space-7); }
+.tratamentos__imagem img { object-position: 60% 50%; }
+.cardapio { display: grid; margin-top: var(--space-7); padding: 0; list-style: none; }
+.cardapio__item { display: grid; align-content: start; gap: var(--space-2); border-top: 1px solid var(--fio); padding-block: var(--space-3) var(--space-7); }
+.cardapio__topo { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.cardapio__num { font-family: var(--serif); font-size: 1.375rem; color: var(--texto-2); }
+.cardapio__cat { margin-top: var(--space-4); font-size: var(--fs-rotulo); letter-spacing: 0.3em; text-transform: uppercase; color: var(--texto-2); }
+.cardapio__item h3 { margin-bottom: var(--space-2); }
+.cardapio__item p:last-child { color: var(--texto-2); }
+@media (max-width: 899px) { .tratamentos__imagem { aspect-ratio: 4 / 3; } }
+@media (min-width: 600px) and (max-width: 899px) {
+  .tratamentos .container { max-width: 560px; }
+}
+@media (min-width: 900px) {
+  .tratamentos__imagem { margin-top: var(--space-8); }
+  .cardapio { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--space-5); row-gap: var(--space-5); margin-top: var(--space-8); }
+}
+
+/* Como é o atendimento */
+.atendimento { position: relative; isolation: isolate; background: var(--escuro); color: var(--texto-inv); overflow: hidden; }
+.atendimento__fundo { position: absolute; inset: 0; z-index: -1; }
+.atendimento__fundo img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 60%; opacity: .35; }
+.atendimento__fundo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,12,11,.55), rgba(13,12,11,.75)); }
+.atendimento h2, .atendimento h3 { color: var(--texto-inv); }
+.atendimento .rotulo, .atendimento .cabeca-dupla__apoio, .etapas p { color: var(--texto-inv-2); }
+.etapas { display: grid; gap: var(--space-6); margin-top: var(--space-8); padding: 0; list-style: none; }
+.etapas__item { display: grid; align-content: start; gap: var(--space-3); border-top: 1px solid var(--fio-inv); padding-top: var(--space-5); }
+.etapas__num { font-family: var(--serif); font-style: italic; font-size: 2.5rem; line-height: 1; color: var(--marca); }
+@media (min-width: 600px) and (max-width: 899px) { .atendimento__conteudo { max-width: 560px; } }
+@media (min-width: 900px) { .etapas { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-9); } }
+
+/* Frase grande */
+.frase { background: var(--fundo-tom); text-align: center; }
+.frase__texto { margin-inline: auto; max-width: 22em; font-family: var(--serif); font-weight: 300; font-size: var(--fs-frase); line-height: 1.2; letter-spacing: 0; text-wrap: balance; }
+.frase__texto em { white-space: normal; }
+@media (min-width: 900px) { .frase { padding-block: var(--space-10); } }
+
+/* Tabela rótulo/valor */
+.tabela { margin-top: var(--space-6); border-top: 1px solid var(--fio); }
+.tabela__linha { display: grid; gap: var(--space-1); padding-block: var(--space-3); border-bottom: 1px solid var(--fio); }
+.tabela dt { font-size: var(--fs-rotulo); letter-spacing: 0.3em; text-transform: uppercase; color: var(--texto-2); }
+.tabela dd { margin: 0; font-family: var(--serif); font-size: 1.375rem; line-height: 1.3; min-height: var(--toque-min); display: flex; flex-direction: column; justify-content: center; }
+.tabela dd a { display: inline-flex; align-items: center; align-self: flex-start; min-height: var(--toque-min); text-decoration: none; }
+.tabela dd a:hover { text-decoration: underline; }
+@media (min-width: 900px) { .tabela__linha { grid-template-columns: 10rem 1fr; gap: var(--space-5); align-items: center; } }
+@media (min-width: 900px) and (max-width: 1199px) { .tabela__linha { grid-template-columns: 8rem 1fr; } }
+
+/* Agendar */
+.agendar__grade { display: grid; gap: var(--space-8); }
+.agendar__texto > p:not(.rotulo) { margin-top: var(--space-6); }
+.agendar__midia { position: relative; width: 100%; max-width: 480px; padding-bottom: var(--space-7); }
+.agendar__imagem { aspect-ratio: 4 / 5; }
+.agendar__cartao {
+  position: absolute; left: var(--space-5); right: var(--space-5); bottom: 0;
+  display: grid; gap: var(--space-2); padding: var(--space-5); background: var(--fundo); border: 1px solid var(--fio);
+}
+.agendar__cartao .link-seta { color: var(--texto); }
+@media (min-width: 600px) and (max-width: 899px) { .agendar__grade { max-width: 560px; margin-inline: auto; } }
+@media (min-width: 900px) {
+  .agendar__grade { grid-template-columns: 7fr 5fr; column-gap: var(--space-9); align-items: center; }
+  .agendar__midia { margin: 0; justify-self: end; }
+  .agendar__cartao { left: calc(-1 * var(--space-7)); right: var(--space-7); }
+}
+@media (min-width: 900px) and (max-width: 1199px) { .agendar__grade { column-gap: var(--space-7); grid-template-columns: 6fr 5fr; } .agendar__cartao { left: calc(-1 * var(--space-5)); right: var(--space-5); } }
+
+/* Dúvidas */
+.duvidas { background: var(--fundo-tom); }
+.duvidas__grade { display: grid; gap: var(--space-6); }
+.acordeao { border-top: 1px solid var(--fio); }
+.acordeao details { border-bottom: 1px solid var(--fio); }
+.acordeao summary {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-5);
+  padding-block: var(--space-5); cursor: pointer; list-style: none;
+  font-family: var(--serif); font-size: 1.375rem; line-height: 1.3;
+}
+.acordeao summary::-webkit-details-marker { display: none; }
+.acordeao summary .icone { flex-shrink: 0; transition: transform var(--dur-base) var(--ease-out); }
+.acordeao details[open] summary .icone { transform: rotate(45deg); }
+.acordeao details p { padding-bottom: var(--space-5); color: var(--texto-2); }
+@media (min-width: 600px) and (max-width: 899px) { .duvidas__grade { max-width: 560px; margin-inline: auto; } }
+@media (min-width: 900px) {
+  .duvidas__grade { grid-template-columns: minmax(300px, 5fr) 7fr; column-gap: var(--space-9); align-items: start; }
+  .duvidas__cabeca { position: sticky; top: calc(var(--header-h) + var(--space-6)); }
+}
+
+/* Visite */
+.visite__grade { display: grid; gap: var(--space-7); }
+.visite__imagem { width: 100%; max-width: 334px; aspect-ratio: 502 / 754; }
+@media (min-width: 600px) and (max-width: 899px) { .visite__grade, .rodape .container { max-width: 560px; margin-inline: auto; } }
+@media (min-width: 900px) {
+  .visite__grade { grid-template-columns: 5fr 7fr; column-gap: var(--space-9); align-items: center; }
+  .visite__imagem { grid-column: 1; grid-row: 1; margin: 0; justify-self: start; }
+  .visite__texto { grid-column: 2; grid-row: 1; }
+}
+@media (min-width: 1200px) {
+  .visite__grade { grid-template-columns: minmax(0, 334px) minmax(0, 1fr); }
+  .visite__texto { max-width: 644px; }
+}
+
+/* Rodapé */
+.rodape { background: var(--escuro); color: var(--texto-inv); padding-block: var(--space-9) var(--space-6); }
+.rodape .rotulo { color: var(--texto-inv-2); margin-bottom: var(--space-4); }
+.rodape__grade { display: grid; gap: var(--space-7); }
+.rodape__sigla { font-family: var(--serif); font-size: 6rem; font-weight: 300; line-height: 0.9; }
+.rodape__marca p:last-child { margin-top: var(--space-4); color: var(--texto-inv-2); max-width: 22em; }
+.rodape__links { display: grid; gap: var(--space-1); }
+.rodape__links a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--toque-min); text-decoration: none; color: var(--texto-inv); }
+.rodape__links a:hover { text-decoration: underline; }
+.rodape address { font-style: normal; color: var(--texto-inv-2); padding-top: var(--space-2); }
+.rodape__legal {
+  display: grid; gap: var(--space-3); margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--fio-inv);
+  font-size: 0.8125rem; color: var(--texto-inv-2);
+}
+.rodape__legal p { max-width: none; }
+.rodape__legal a { display: inline-flex; align-items: center; min-height: var(--toque-min); color: var(--texto-inv); }
+.rodape :focus-visible { outline-color: var(--texto-inv); }
+@media (max-width: 899px) {
+  body:has(.whatsapp-fixo) { padding-bottom: 0; }
+  .rodape { padding-bottom: calc(var(--space-8) + var(--space-8)); }
+}
+@media (min-width: 900px) {
+  .rodape__grade { grid-template-columns: 2fr 1fr 1.4fr; gap: var(--space-8); }
+  .rodape__legal { grid-template-columns: 1fr auto; align-items: center; gap: var(--space-6); }
+}
+
+/* Botão fixo de WhatsApp (celular) */
+.whatsapp-fixo { box-shadow: none; border-radius: var(--raio); }
+@media (min-width: 900px) { .whatsapp-fixo { display: none; } }
+
+/* Páginas internas */
+.pagina { padding-top: calc(var(--header-h) + var(--space-9)); padding-bottom: var(--section-y); }
+.pagina h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.05; margin-bottom: var(--space-6); }
+.pagina h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-top: var(--space-7); margin-bottom: var(--space-4); }
+.pagina p + p { margin-top: var(--space-4); }
+.pagina__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-7); }
+@media (max-width: 899px) { .pagina__acoes .botao { flex: 1 1 100%; } }
