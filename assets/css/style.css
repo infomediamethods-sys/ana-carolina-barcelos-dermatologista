@@ -197,7 +197,8 @@ a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
   .dermatologista__texto { grid-column: 1; grid-row: 2; align-self: start; margin-top: 0; }
   .dermatologista__fotos { grid-column: 2; grid-row: 1 / span 2; justify-self: end; width: 100%; max-width: 480px; padding-left: var(--space-8); }
   .dermatologista__retrato { display: block; width: 220px; left: 0; bottom: calc(-1 * var(--space-7)); }
-  .dados { grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-10); }
+  /* 06/10: colunas do tamanho do conteúdo e espaço igual entre os três dados (com 1fr o vão depois do RQE ficava maior) */
+  .dados { grid-template-columns: repeat(3, max-content); justify-content: space-between; gap: var(--space-6); margin-top: var(--space-10); }
 }
 @media (min-width: 900px) and (max-width: 1199px) {
   .dermatologista__grade { column-gap: var(--space-7); grid-template-columns: 6fr 6fr; }
