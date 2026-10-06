@@ -199,6 +199,8 @@ a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
   .dermatologista__retrato { display: block; width: 220px; left: 0; bottom: calc(-1 * var(--space-7)); }
   /* 06/10: colunas do tamanho do conteúdo e espaço igual entre os três dados (com 1fr o vão depois do RQE ficava maior) */
   .dados { grid-template-columns: repeat(3, max-content); justify-content: space-between; gap: var(--space-6); margin-top: var(--space-10); }
+  .dados dt { contain: inline-size; }   /* a largura de cada coluna vem só do número grande */
+  .dados__item { justify-content: flex-end; }   /* números grandes alinhados no topo mesmo se um rótulo quebrar */
 }
 @media (min-width: 900px) and (max-width: 1199px) {
   .dermatologista__grade { column-gap: var(--space-7); grid-template-columns: 6fr 6fr; }
@@ -316,6 +318,9 @@ a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
   .visite__grade { grid-template-columns: 5fr 7fr; column-gap: var(--space-9); align-items: center; }
   .visite__imagem { grid-column: 1; grid-row: 1; margin: 0; justify-self: start; max-width: 400px; }
   .visite__texto { grid-column: 2; grid-row: 1; }
+}
+@media (min-width: 1200px) {
+  .dados dt { white-space: nowrap; }   /* tela larga: rótulo numa linha só, cabe no vão */
 }
 @media (min-width: 1200px) {
   .visite__grade { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); }
