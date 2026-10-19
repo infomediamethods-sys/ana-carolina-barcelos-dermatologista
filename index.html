@@ -17,8 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/heroi-ia-celular-faixa.webp" media="(max-width: 899px)">
-<link rel="preload" as="image" href="assets/img/heroi-ia-pc.webp" media="(min-width: 900px)">
+<link rel="preload" as="image" media="(max-width: 899px)" imagesrcset="assets/img/heroi-ia-celular-faixa-480.webp 480w, assets/img/heroi-ia-celular-faixa-960.webp 960w" imagesizes="100vw">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/style.css">
 <script type="application/ld+json">
@@ -79,11 +78,10 @@
   <section class="heroi" id="inicio" data-heroi>
     <div class="heroi__midia">
       <picture>
-        <source media="(min-width: 900px)" type="image/webp" srcset="assets/img/heroi-ia-pc.webp">
-        <source media="(min-width: 900px)" srcset="assets/img/heroi-ia-pc.jpg">
-        <source type="image/webp" srcset="assets/img/heroi-ia-celular-faixa.webp">
-        <img src="assets/img/heroi-ia-celular-faixa.jpg" width="1080" height="1350" alt="Close de pele clara com sardas e olho fechado" fetchpriority="high">
-      </picture>
+  <source type="image/webp" media="(max-width: 899px)" srcset="assets/img/heroi-ia-celular-faixa-480.webp 480w, assets/img/heroi-ia-celular-faixa-960.webp 960w" sizes="100vw">
+  <source type="image/webp" srcset="assets/img/heroi-ia-celular-faixa-960.webp 960w" sizes="100vw">
+  <img src="assets/img/heroi-ia-celular-faixa-960.jpg" width="1080" height="1350" alt="Close de pele clara com sardas e olho fechado" decoding="async" fetchpriority="high">
+</picture>
     </div>
     <div class="container heroi__grade">
       <div class="heroi__texto">
@@ -111,15 +109,17 @@
       <div class="dermatologista__fotos revelar">
         <div class="midia dermatologista__mesa">
           <picture>
-            <source type="image/webp" srcset="assets/img/sobre-ana-mesa.webp">
-            <img src="assets/img/sobre-ana-mesa.jpg" width="1067" height="1423" alt="Dra. Ana Carolina Barcelos à mesa do consultório" loading="lazy">
-          </picture>
+  <source type="image/webp" media="(max-width: 899px)" srcset="assets/img/sobre-ana-mesa-480.webp 480w, assets/img/sobre-ana-mesa-960.webp 960w" sizes="100vw">
+  <source type="image/webp" srcset="assets/img/sobre-ana-mesa-960.webp 960w" sizes="50vw">
+  <img src="assets/img/sobre-ana-mesa-960.jpg" width="1067" height="1423" alt="Dra. Ana Carolina Barcelos à mesa do consultório" decoding="async">
+</picture>
         </div>
         <div class="midia dermatologista__retrato">
           <picture>
-            <source type="image/webp" srcset="assets/img/sobre-ana-retrato.webp">
-            <img src="assets/img/sobre-ana-retrato.jpg" width="502" height="628" alt="Retrato da Dra. Ana Carolina Barcelos sentada no consultório" loading="lazy">
-          </picture>
+  <source type="image/webp" media="(max-width: 899px)" srcset="assets/img/sobre-ana-retrato-480.webp 480w, assets/img/sobre-ana-retrato-960.webp 960w" sizes="100vw">
+  <source type="image/webp" srcset="assets/img/sobre-ana-retrato-960.webp 960w" sizes="50vw">
+  <img src="assets/img/sobre-ana-retrato-960.jpg" width="502" height="628" alt="Retrato da Dra. Ana Carolina Barcelos sentada no consultório" decoding="async">
+</picture>
         </div>
       </div>
       <div class="dermatologista__texto revelar">
@@ -190,9 +190,10 @@
   <section class="secao atendimento" id="atendimento" aria-labelledby="atendimento-titulo">
     <div class="atendimento__fundo" aria-hidden="true">
       <picture>
-        <source type="image/webp" srcset="assets/img/atendimento-janela.webp">
-        <img src="assets/img/atendimento-janela.jpg" width="990" height="925" alt="" loading="lazy">
-      </picture>
+  <source type="image/webp" media="(max-width: 899px)" srcset="assets/img/atendimento-janela-480.webp 480w, assets/img/atendimento-janela-960.webp 960w" sizes="100vw">
+  <source type="image/webp" srcset="assets/img/atendimento-janela-960.webp 960w" sizes="50vw">
+  <img src="assets/img/atendimento-janela-960.jpg" width="990" height="925" alt="" decoding="async" loading="lazy">
+</picture>
     </div>
     <div class="container atendimento__conteudo">
       <div class="cabeca-dupla revelar">
@@ -236,9 +237,10 @@
       <div class="agendar__midia revelar">
         <div class="midia agendar__imagem">
           <picture>
-            <source type="image/webp" srcset="assets/img/agendar-luz.webp">
-            <img src="assets/img/agendar-luz.jpg" width="1200" height="1500" alt="" loading="lazy">
-          </picture>
+  <source type="image/webp" media="(max-width: 899px)" srcset="assets/img/agendar-luz-480.webp 480w, assets/img/agendar-luz-960.webp 960w" sizes="100vw">
+  <source type="image/webp" srcset="assets/img/agendar-luz-960.webp 960w" sizes="50vw">
+  <img src="assets/img/agendar-luz-960.jpg" width="1200" height="1500" alt="" decoding="async" loading="lazy">
+</picture>
         </div>
         <div class="agendar__cartao">
           <p class="rotulo">Consultas com hora marcada</p>
@@ -283,9 +285,10 @@
       </div>
       <div class="midia visite__imagem revelar">
         <picture>
-          <source type="image/webp" srcset="assets/img/visite-janela-ponte.webp">
-          <img src="assets/img/visite-janela-ponte.jpg" width="740" height="925" alt="Vista da janela do consultório para a Ponte Hercílio Luz ao entardecer" loading="lazy">
-        </picture>
+  <source type="image/webp" media="(max-width: 899px)" srcset="assets/img/visite-janela-ponte-480.webp 480w, assets/img/visite-janela-ponte-960.webp 960w" sizes="100vw">
+  <source type="image/webp" srcset="assets/img/visite-janela-ponte-960.webp 960w" sizes="50vw">
+  <img src="assets/img/visite-janela-ponte-960.jpg" width="740" height="925" alt="Vista da janela do consultório para a Ponte Hercílio Luz ao entardecer" decoding="async" loading="lazy">
+</picture>
       </div>
     </div>
   </section>

@@ -357,3 +357,9 @@ a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 .pagina p + p { margin-top: var(--space-4); }
 .pagina__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-7); }
 @media (max-width: 899px) { .pagina__acoes .botao { flex: 1 1 100%; } }
+
+
+/* Regra do Armin, 19/10/2026 (§0 "Rolagem leve no celular"): sem vidro desfocado no celular; fundo quase opaco. Aplicado por aplicar-carregamento.mjs. */
+@media (max-width: 899px) {
+  .cabecalho[data-rolado] { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(245, 241, 234, 0.96); }
+}
